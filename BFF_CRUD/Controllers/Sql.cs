@@ -16,7 +16,10 @@ namespace BFF_CRUD.Controllers
             string statement = dynSt.statement.ToLower();
             if (!StatementValidationService.ValidateSelectStatement(statement))
                 return BadRequest("O statement declarado não corresponde à estrutura de um comando SELECT.");
-            return Ok("SELECT efetuado");
+            string executionResult = DataAccessService.performQuery(statement);
+            if (executionResult.Contains("Falha na execução: "))
+                return BadRequest(executionResult);
+            return Ok(executionResult);
         }
 
         [Route("sql/insert")]
@@ -27,7 +30,10 @@ namespace BFF_CRUD.Controllers
             string statement = dynSt.statement.ToLower();
             if (!StatementValidationService.ValidateInsertStatement(statement))
                 return BadRequest("O statement declarado não corresponde à estrutura de um comando INSERT.");
-            return Ok("INSERT efetuado");
+            string executionResult = DataAccessService.performNonQuery(statement);
+            if (executionResult.Contains("Falha na execução: "))
+                return BadRequest(executionResult);
+            return Ok(executionResult);
         }
 
         [Route("sql/update")]
@@ -38,7 +44,10 @@ namespace BFF_CRUD.Controllers
             string statement = dynSt.statement.ToLower();
             if (!StatementValidationService.ValidateUpdateStatement(statement))
                 return BadRequest("O statement declarado não corresponde à estrutura de um comando UPDATE com WHERE.");
-            return Ok("UPDATE efetuado");
+            string executionResult = DataAccessService.performNonQuery(statement);
+            if (executionResult.Contains("Falha na execução: "))
+                return BadRequest(executionResult);
+            return Ok(executionResult);
         }
 
         [Route("sql/delete")]
@@ -49,7 +58,10 @@ namespace BFF_CRUD.Controllers
             string statement = dynSt.statement.ToLower();
             if (!StatementValidationService.ValidateDeleteStatement(statement))
                 return BadRequest("O statement declarado não corresponde à estrutura de um comando DELETE com WHERE.");
-            return Ok("DELETE efetuado");
+            string executionResult = DataAccessService.performNonQuery(statement);
+            if (executionResult.Contains("Falha na execução: "))
+                return BadRequest(executionResult);
+            return Ok(executionResult);
         }
     }
 }

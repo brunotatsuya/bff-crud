@@ -1,12 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BFF_CRUD.Models;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BFF_CRUD.Controllers
 {
@@ -15,7 +9,6 @@ namespace BFF_CRUD.Controllers
     [Authorize]
     public class Sql : ControllerBase
     {
-        // POST api/<sql>
         [HttpPost]
         public IActionResult PerformSelect(SelectQuery selectQuery)
         {

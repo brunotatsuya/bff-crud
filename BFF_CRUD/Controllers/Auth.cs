@@ -19,15 +19,17 @@ namespace BFF_CRUD.Controllers
         [HttpPost]
         public IActionResult RequestToken(Credentials credentials)
         {
-            if (credentials.user == "tatsuya" && credentials.password == "1217")
+            string stsAccessToken = STSAuthService.TrySTSAuthentication(credentials);
+            if (string.IsNullOrEmpty(stsAccessToken))
             {
-                var token = TokenService.GenerateToken(credentials, _configuration);
-                return Ok(token);
-            } else
-            {
-                return Unauthorized("credenciais inválidas");
+                return Unauthorized("As credenciais informadas não são válidas para autenticação STS.");
             }
+            if (!(STSAuthService.ValidateGSIGroup(stsAccessToken, _configuration)))
+            {
+                return Unauthorized("As credenciais informadas não têm autorização para utilizar este serviço.");
+            }
+            var token = TokenService.GenerateToken(credentials, _configuration);
+            return Ok(token);
         }
-
     }
 }

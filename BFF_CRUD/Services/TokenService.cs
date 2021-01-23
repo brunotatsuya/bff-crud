@@ -20,7 +20,7 @@ namespace BFF_CRUD.Services
                 {
                     new Claim(ClaimTypes.Name, credentials.user.ToString()),
                 }),
-                Expires = DateTime.UtcNow.AddHours(8),
+                Expires = DateTime.UtcNow.AddMinutes(Int32.Parse(_configuration["JWT:minutes_alive"])),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

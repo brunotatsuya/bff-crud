@@ -31,7 +31,7 @@ namespace BFF_CRUD.Controllers
         }
 
         [Route("sql/update")]
-        [HttpPost]
+        [HttpPut]
         [Authorize]
         public IActionResult PerformUpdate(DynamicStatement dynSt)
         {
@@ -42,7 +42,7 @@ namespace BFF_CRUD.Controllers
         }
 
         [Route("sql/delete")]
-        [HttpPost]
+        [HttpDelete]
         [Authorize]
         public IActionResult PerformDelete(DynamicStatement dynSt)
         {

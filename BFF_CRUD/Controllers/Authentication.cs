@@ -5,13 +5,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace BFF_CRUD.Controllers
 {
-    [Route("auth/request_token")]
+    [Route("request_token")]
     [ApiController]
-    public class Auth : ControllerBase
+    public class Authentication : ControllerBase
     {
         private IConfiguration _configuration;
 
-        public Auth(IConfiguration Configuration)
+        public Authentication(IConfiguration Configuration)
         {
             _configuration = Configuration;
         }

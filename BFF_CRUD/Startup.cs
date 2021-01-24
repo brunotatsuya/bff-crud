@@ -26,7 +26,7 @@ namespace BFF_CRUD
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BFF_CRUD", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SQL Application Layer", Version = "v1" });
             });
 
             services.AddAuthentication(x =>
@@ -54,7 +54,7 @@ namespace BFF_CRUD
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BFF_CRUD v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SQL Application Layer v1"));
             }
 
             app.UseHttpsRedirection();

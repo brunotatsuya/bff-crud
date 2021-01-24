@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace BFF_CRUD.Controllers
 {
     [ApiController]
-    public class Sql : ControllerBase
+    public class Statement : ControllerBase
     {
-        [Route("sql/select")]
+        [Route("select")]
         [HttpPost]
         [Authorize]
         public IActionResult PerformSelect(DynamicStatement dynSt)
@@ -22,7 +22,7 @@ namespace BFF_CRUD.Controllers
             return Ok(executionResult);
         }
 
-        [Route("sql/insert")]
+        [Route("insert")]
         [HttpPost]
         [Authorize]
         public IActionResult PerformInsert(DynamicStatement dynSt)
@@ -36,7 +36,7 @@ namespace BFF_CRUD.Controllers
             return Ok(executionResult);
         }
 
-        [Route("sql/update")]
+        [Route("update")]
         [HttpPut]
         [Authorize]
         public IActionResult PerformUpdate(DynamicStatement dynSt)
@@ -50,7 +50,7 @@ namespace BFF_CRUD.Controllers
             return Ok(executionResult);
         }
 
-        [Route("sql/delete")]
+        [Route("delete")]
         [HttpDelete]
         [Authorize]
         public IActionResult PerformDelete(DynamicStatement dynSt)

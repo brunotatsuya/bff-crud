@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>BFF_CRUD</AssemblyName>
+    <RootNamespace>BFF_CRUD</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

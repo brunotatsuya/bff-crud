@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace BFF_CRUD
@@ -16,6 +17,8 @@ namespace BFF_CRUD
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var hmac = new HMACSHA256();
+            Configuration["JWT:key"] = Convert.ToBase64String(hmac.Key);
         }
 
         public IConfiguration Configuration { get; }
@@ -40,7 +43,7 @@ namespace BFF_CRUD
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWT:key"].ToString())),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["JWT:key"])),
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ClockSkew = TimeSpan.Zero

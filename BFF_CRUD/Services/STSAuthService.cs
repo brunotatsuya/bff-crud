@@ -6,7 +6,7 @@ namespace BFF_CRUD.Services
 {
     public class STSAuthService
     {
-        public static string TrySTSAuthentication(Credentials credentials)
+        public static string TrySTSAuthentication(ResourceOwner credentials)
         {
             if (credentials.user == "admin" && credentials.password == "123") return "G_TB5";
             else return "";
@@ -15,6 +15,11 @@ namespace BFF_CRUD.Services
         {
             string requiredGSIGroup = _configuration["STS:authorized_GSI"];
             return String.Equals(stsAccessToken, requiredGSIGroup);
+        }
+
+        public static bool TrySTSAuthentication(ClientCredentials credentials)
+        {
+            return credentials.client_id == "abc";
         }
     }
 }

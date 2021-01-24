@@ -2,7 +2,7 @@
 
 namespace BFF_CRUD.Models
 {
-    public class Credentials
+    public class ResourceOwner
     {
         [Required]
         public string user { get; set; }

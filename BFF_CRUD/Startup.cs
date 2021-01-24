@@ -28,7 +28,7 @@ namespace BFF_CRUD
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BFF_CRUD", Version = "v1" });
             });
-            
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

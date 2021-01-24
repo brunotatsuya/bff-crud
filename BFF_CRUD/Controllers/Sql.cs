@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using BFF_CRUD.Models;
+﻿using BFF_CRUD.Models;
 using BFF_CRUD.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BFF_CRUD.Controllers
 {

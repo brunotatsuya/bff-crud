@@ -4,7 +4,7 @@ namespace BFF_CRUD.Services
 {
     public class StatementValidationService
     {
-        private static string[] reservedWords = {"select ", "insert into ", "update ", "delete from ", "output ", 
+        private static string[] reservedWords = {"select ", "insert into ", "update ", "delete from ", "output ",
             "merge ", "bulk insert ", "truncate ", "alter ", "drop ", "rename "};
 
         private static bool ContainsReservedWordsExcept(string statement, string command)

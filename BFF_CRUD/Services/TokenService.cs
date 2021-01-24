@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BFF_CRUD.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using BFF_CRUD.Models;
-using Microsoft.Extensions.Configuration;
 
 namespace BFF_CRUD.Services
 {

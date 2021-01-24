@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using BFF_CRUD.Models;
+﻿using BFF_CRUD.Models;
 using BFF_CRUD.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 namespace BFF_CRUD.Controllers

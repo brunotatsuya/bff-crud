@@ -2,66 +2,61 @@
 using BFF_CRUD.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace BFF_CRUD.Controllers
 {
     [ApiController]
+    [Authorize]
     public class Statement : ControllerBase
     {
-        [Route("select")]
-        [HttpPost]
-        [Authorize]
-        public IActionResult PerformSelect(DynamicStatement dynSt)
+        private IConfiguration _configuration;
+
+        public Statement(IConfiguration Configuration)
         {
-            string statement = dynSt.statement.ToLower();
-            if (!StatementValidationService.ValidateSelectStatement(statement))
-                return BadRequest("O statement declarado não corresponde à estrutura de um comando SELECT.");
-            string executionResult = DataAccessService.performQuery(statement);
+            _configuration = Configuration;
+        }
+
+        private IActionResult PerformHelper(DynamicStatement dynSt, string verb)
+        {
+            if (!RulesValidationService.ValidateTargetEnviroment(dynSt))
+                return BadRequest("O ambiente informado é inválido.");
+            if (!RulesValidationService.ValidateTargetDatabase(dynSt, _configuration))
+                return BadRequest("O banco de dados informado não é acessível por este serviço.");
+            if (!RulesValidationService.ValidateStatement(dynSt, verb))
+                return BadRequest("O statement declarado não corresponde a um comando " + verb + " válido.");
+            string executionResult = DataAccessService.performStatement(dynSt, verb, _configuration);
             if (executionResult.Contains("Falha na execução: "))
                 return BadRequest(executionResult);
             return Ok(executionResult);
+        }
+
+        [Route("select")]
+        [HttpPost]
+        public IActionResult PerformSelect(DynamicStatement dynSt)
+        {
+            return PerformHelper(dynSt, "SELECT");
         }
 
         [Route("insert")]
         [HttpPost]
-        [Authorize]
         public IActionResult PerformInsert(DynamicStatement dynSt)
         {
-            string statement = dynSt.statement.ToLower();
-            if (!StatementValidationService.ValidateInsertStatement(statement))
-                return BadRequest("O statement declarado não corresponde à estrutura de um comando INSERT.");
-            string executionResult = DataAccessService.performNonQuery(statement);
-            if (executionResult.Contains("Falha na execução: "))
-                return BadRequest(executionResult);
-            return Ok(executionResult);
+            return PerformHelper(dynSt, "INSERT");
         }
 
         [Route("update")]
         [HttpPut]
-        [Authorize]
         public IActionResult PerformUpdate(DynamicStatement dynSt)
         {
-            string statement = dynSt.statement.ToLower();
-            if (!StatementValidationService.ValidateUpdateStatement(statement))
-                return BadRequest("O statement declarado não corresponde à estrutura de um comando UPDATE com WHERE.");
-            string executionResult = DataAccessService.performNonQuery(statement);
-            if (executionResult.Contains("Falha na execução: "))
-                return BadRequest(executionResult);
-            return Ok(executionResult);
+            return PerformHelper(dynSt, "UPDATE");
         }
 
         [Route("delete")]
         [HttpDelete]
-        [Authorize]
         public IActionResult PerformDelete(DynamicStatement dynSt)
         {
-            string statement = dynSt.statement.ToLower();
-            if (!StatementValidationService.ValidateDeleteStatement(statement))
-                return BadRequest("O statement declarado não corresponde à estrutura de um comando DELETE com WHERE.");
-            string executionResult = DataAccessService.performNonQuery(statement);
-            if (executionResult.Contains("Falha na execução: "))
-                return BadRequest(executionResult);
-            return Ok(executionResult);
+            return PerformHelper(dynSt, "DELETE");
         }
     }
 }

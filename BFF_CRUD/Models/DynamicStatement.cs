@@ -6,5 +6,9 @@ namespace BFF_CRUD.Models
     {
         [Required]
         public string statement { get; set; }
+        [Required]
+        public string environment { get; set; }
+        [Required]
+        public string database { get; set; }
     }
 }

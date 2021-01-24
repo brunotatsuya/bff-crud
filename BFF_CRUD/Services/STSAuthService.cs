@@ -13,9 +13,8 @@ namespace BFF_CRUD.Services
         }
         public static bool ValidateGSIGroup(string stsAccessToken, IConfiguration _configuration)
         {
-            string requiredGSIGroup = _configuration["STS:GSI_group"];
-            if (String.Equals(stsAccessToken, requiredGSIGroup)) return true;
-            return false;
+            string requiredGSIGroup = _configuration["STS:authorized_GSI"];
+            return String.Equals(stsAccessToken, requiredGSIGroup);
         }
     }
 }

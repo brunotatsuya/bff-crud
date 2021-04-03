@@ -26,6 +26,7 @@ namespace BFF_CRUD
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IConfiguration>(Configuration);
+            services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -56,13 +57,24 @@ namespace BFF_CRUD
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SQL Application Layer v1"));
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SQL Application Layer v1");
+            });
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(c => c
+                .WithOrigins(Configuration["AllowedOrigins"].Split(";"))
+                .AllowAnyMethod()
+                .AllowCredentials()
+                .AllowAnyHeader()
+                );
 
             app.UseAuthentication();
 

@@ -37,8 +37,9 @@ Coded by www.creative-tim.com
 
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.6/css/bootstrap-select.min.css" rel="stylesheet">
 
-
+    
 </head>
 
 <body class="">
@@ -249,9 +250,27 @@ Coded by www.creative-tim.com
                         <div class="tab-content">
 
                             <div id="home" class="container tab-pane fade"><br>
-                                <h3>HOME</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.</p>
+                                  <br>
+                                  <div class="container">
+                                    <select id="selector" class="selectpicker" data-width="40%" title="Tokens" data-live-search="true" data-dropup-auto="false" data-size="3">
+                                    {% for token in tokens %}
+                                    <option value="{{token}}">{{token}}</option>
+                                    {% endfor %}
+                                    </select> 
+                                </div>
+                                <br>
+                                <div class="md-form md-outline input-with-post-icon datepicker">
+                                    <span>Data início</span>
+                                    <input placeholder="Select date" type="date" id="example1" class="form-control">
+                                  </div>
+                                <br>
+                                <div class="md-form md-outline input-with-post-icon datepicker">
+                                    <span>Data Fim</span>
+                                    <input placeholder="Select date" type="date" id="example2" class="form-control">
+                                  </div>
+                                  <button id="makeDownload" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                    Download
+                                  </button>
                             </div>
 
                             <div id="menu1" class="container tab-pane active"><br>
@@ -381,6 +400,8 @@ Coded by www.creative-tim.com
     <script src="{{ url_for('static', filename='js/paper-dashboard.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.6/js/bootstrap-select.min.js"></script>
+    
 
 </body>
 
